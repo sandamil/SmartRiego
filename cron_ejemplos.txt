@@ -1,0 +1,7 @@
+# Ejemplo crontab para programar riego
+
+# Encender válvula 1 a las 7:00 AM
+0 7 * * * /usr/bin/python3 /home/orangepi/SmartRiego/control_riego.py R1ON
+
+# Apagar válvula 1 a las 7:15 AM
+15 7 * * * /usr/bin/python3 /home/orangepi/SmartRiego/control_riego.py R1OFF

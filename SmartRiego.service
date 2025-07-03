@@ -1,0 +1,11 @@
+[Unit]
+Description=SmartRiego Flask Web Server
+After=network.target
+
+[Service]
+User=orangepi
+ExecStart=/usr/bin/python3 /home/orangepi/SmartRiego/web_riego.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
