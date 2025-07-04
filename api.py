@@ -90,6 +90,37 @@ def status():
     except Exception as e:
         return jsonify({"estado": "error", "mensaje": str(e)})
 
+from flask import send_from_directory
+
+@app.route('/')
+def interfaz_web():
+    return send_from_directory('static', 'index.html')
+
+
+@app.route('/valvula', methods=['POST'])
+def controlar_valvula():
+    datos = request.get_json()
+    zona = datos.get("zona")
+    estado = datos.get("estado")
+    tiempo = datos.get("tiempo", 0)
+
+    if not zona or not estado:
+        return jsonify({"estado": "error", "mensaje": "Faltan datos: zona y estado son obligatorios"}), 400
+
+    comando = f"{zona}:{estado}"
+    if tiempo:
+        comando += f":{tiempo}"
+
+    try:
+        with serial.Serial(SERIAL_PORT, BAUDRATE, timeout=2) as arduino:
+            time.sleep(2)
+            arduino.write((comando + '\n').encode())
+            logging.info(f"📤 Enviado a Arduino: {comando}")
+            return jsonify({"estado": "ok", "comando": comando})
+    except Exception as e:
+        logging.error(f"❌ Error enviando a Arduino: {e}")
+        return jsonify({"estado": "error", "mensaje": str(e)})
+
 # 🏁 Iniciar servidor
 if __name__ == '__main__':
     logging.info(f"✅ Conectado exitosamente a {SERIAL_PORT}")
