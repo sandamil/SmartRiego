@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SmartRiego</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { padding: 2rem; background: #f8f9fa; }
+    .zona-card { border-left: 5px solid #198754; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-4">💧 SmartRiego</h1>
+    <div class="row">
+      <!-- Zona 1 -->
+      <div class="col-md-6">
+        <div class="card zona-card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Zona 1</h5>
+            <div class="mb-2">
+              <button class="btn btn-success me-2" onclick="controlarRiego(1, 'on')">Encender</button>
+              <button class="btn btn-danger" onclick="controlarRiego(1, 'off')">Apagar</button>
+            </div>
+            <input type="number" id="tiempo1" class="form-control" placeholder="Tiempo (segundos)">
+          </div>
+        </div>
+      </div>
+      <!-- Zona 2 -->
+      <div class="col-md-6">
+        <div class="card zona-card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Zona 2</h5>
+            <div class="mb-2">
+              <button class="btn btn-success me-2" onclick="controlarRiego(2, 'on')">Encender</button>
+              <button class="btn btn-danger" onclick="controlarRiego(2, 'off')">Apagar</button>
+            </div>
+            <input type="number" id="tiempo2" class="form-control" placeholder="Tiempo (segundos)">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="estado" class="alert alert-info" role="alert">
+      Esperando comando...
+    </div>
+  </div>
+
+  <script>
+    function controlarRiego(zona, estado) {
+      const tiempo = document.getElementById(`tiempo${zona}`).value;
+      let url = `/riego/${zona}/${estado}`;
+      if (estado === 'on' && tiempo) {
+        url += `?tiempo=${tiempo}`;
+      }
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            document.getElementById("estado").className = "alert alert-danger";
+            document.getElementById("estado").textContent = "❌ Error: " + data.mensaje;
+          } else {
+            document.getElementById("estado").className = "alert alert-success";
+            document.getElementById("estado").textContent = `✅ Zona ${data.zona} → ${data.estado.toUpperCase()} (${data.respuesta})`;
+          }
+        })
+        .catch(err => {
+          document.getElementById("estado").className = "alert alert-danger";
+          document.getElementById("estado").textContent = "❌ Error de red: " + err;
+        });
+    }
+  </script>
+</body>
+</html>
