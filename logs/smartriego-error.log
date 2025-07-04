@@ -1,0 +1,36 @@
+2025-07-04 08:02:49,254 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 08:02:49,493 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-04 08:02:49,494 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-04 08:09:45,404 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 08:09:45,669 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-04 08:09:45,670 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-04 08:12:27,544 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 08:12:27,785 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-04 08:12:27,786 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-04 08:18:05,188 [INFO] 192.168.1.148 - - [04/Jul/2025 08:18:05] "[33mGET / HTTP/1.1[0m" 404 -
+2025-07-04 08:18:11,847 [INFO] 192.168.1.148 - - [04/Jul/2025 08:18:11] "[33mGET / HTTP/1.1[0m" 404 -
+2025-07-04 08:18:19,470 [INFO] 🔁 Comando recibido: 1:on
+2025-07-04 08:18:21,476 [INFO] 📤 Enviado al Arduino: 1:on
+2025-07-04 08:18:22,479 [INFO] 📥 Respuesta del Arduino: OK
+2025-07-04 08:18:22,740 [INFO] 192.168.1.148 - - [04/Jul/2025 08:18:22] "GET /riego/1/on HTTP/1.1" 200 -
+2025-07-04 08:20:25,167 [INFO] 🔁 Comando recibido: 1:on
+2025-07-04 08:20:27,175 [INFO] 📤 Enviado al Arduino: 1:on
+2025-07-04 08:20:28,177 [INFO] 📥 Respuesta del Arduino: OK
+2025-07-04 08:20:28,445 [INFO] 192.168.1.148 - - [04/Jul/2025 08:20:28] "GET /riego/1/on HTTP/1.1" 200 -
+2025-07-04 08:20:33,388 [INFO] 🔁 Comando recibido: 1:on
+2025-07-04 08:20:35,396 [INFO] 📤 Enviado al Arduino: 1:on
+2025-07-04 08:20:36,398 [INFO] 📥 Respuesta del Arduino: OK
+2025-07-04 08:20:36,646 [INFO] 192.168.1.148 - - [04/Jul/2025 08:20:36] "GET /riego/1/on HTTP/1.1" 200 -
+2025-07-04 08:22:01,551 [INFO] 🔁 Comando recibido: 1:on
+2025-07-04 08:22:03,561 [INFO] 📤 Enviado al Arduino: 1:on
+2025-07-04 08:22:04,563 [INFO] 📥 Respuesta del Arduino: OK
+2025-07-04 08:22:04,906 [INFO] 192.168.1.148 - - [04/Jul/2025 08:22:04] "GET /riego/1/on HTTP/1.1" 200 -

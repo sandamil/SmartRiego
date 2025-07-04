@@ -1,0 +1,16 @@
+2025-07-04 00:06:29,178 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-04 00:06:29,200 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 00:06:29,308 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.159:5000
+2025-07-04 00:06:29,309 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-04 08:30:10,529 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-04 08:30:10,547 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 08:30:10,563 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-04 08:30:10,563 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-04 08:30:24,341 [INFO] 📶 Arduino activo: Formato inválido
+2025-07-04 08:30:24,364 [INFO] 192.168.1.148 - - [04/Jul/2025 08:30:24] "GET /status HTTP/1.1" 200 -
