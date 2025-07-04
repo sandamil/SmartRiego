@@ -2,7 +2,7 @@ import serial
 import time
 import logging
 import requests
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, send_from_directory
 
 # 📌 Configuración
 SERIAL_PORT = "/dev/ttyACM0"
