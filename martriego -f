@@ -1,0 +1,11 @@
+[0;1;32m●[0m smartriego.service - SmartRiego API Flask
+     Loaded: loaded (]8;;file://orangepizero/etc/systemd/system/smartriego.service/etc/systemd/system/smartriego.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Sat 2025-07-05 07:58:55 CEST; 34min ago
+   Main PID: 1847 (python)
+      Tasks: 1 (limit: 867)
+     Memory: 15.7M (peak: 16.5M)
+        CPU: 3.043s
+     CGroup: /system.slice/smartriego.service
+             └─[0;38;5;245m1847 /root/SmartRiego/venv/bin/python /root/SmartRiego/api.py[0m
+
+Jul 05 07:58:55 orangepizero systemd[1]: Started smartriego.service - SmartRiego API.

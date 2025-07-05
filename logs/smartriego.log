@@ -14,3 +14,21 @@
  * Debug mode: off
  * Serving Flask app 'api'
  * Debug mode: off
+ * Serving Flask app 'api'
+ * Debug mode: off
+ * Serving Flask app 'api'
+ * Debug mode: off
+ * Serving Flask app 'api'
+ * Debug mode: off
+ * Serving Flask app 'api'
+ * Debug mode: off
+ * Serving Flask app 'api'
+ * Debug mode: off
+ * Serving Flask app 'api'
+ * Debug mode: off
+ * Serving Flask app 'api'
+ * Debug mode: off
+ * Serving Flask app 'api'
+ * Debug mode: off
+2025-07-05 10:14:37,301 INFO: Arduino respondió: OK
+2025-07-05 10:14:39,821 INFO: Arduino respondió: 🔧 Comando recibido: zona=1 estado=on tiempo=0

@@ -263,3 +263,174 @@ NameError: name 'request' is not defined. Did you mean: 'requests'?
 2025-07-04 10:24:37,184 [INFO] 📥 Respuesta del Arduino: OK
 2025-07-04 10:24:37,431 [INFO] 192.168.1.148 - - [04/Jul/2025 10:24:37] "GET /riego/1/on?tiempo=2 HTTP/1.1" 200 -
 2025-07-04 10:28:07,118 [INFO] 192.168.1.148 - - [04/Jul/2025 10:28:07] "[36mGET / HTTP/1.1[0m" 304 -
+2025-07-04 10:00:26,058 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-04 10:00:26,062 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 10:00:26,083 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-04 10:00:26,084 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-04 12:51:40,625 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-04 12:51:40,626 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 12:51:40,641 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-04 12:51:40,642 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-04 12:51:54,249 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-04 12:51:54,250 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 12:51:57,655 [INFO] 192.168.1.148 - - [04/Jul/2025 12:51:57] "GET / HTTP/1.1" 200 -
+2025-07-04 12:52:02,739 [INFO] 🔁 Comando recibido: 1:on
+2025-07-04 12:52:04,745 [INFO] 📤 Enviado al Arduino: 1:on
+2025-07-04 12:52:05,748 [INFO] 📥 Respuesta del Arduino: OK
+2025-07-04 12:52:05,860 [INFO] 🔁 Comando recibido: 1:off
+2025-07-04 12:52:05,999 [INFO] 192.168.1.148 - - [04/Jul/2025 12:52:05] "GET /riego/1/on HTTP/1.1" 200 -
+2025-07-04 12:52:07,865 [INFO] 📤 Enviado al Arduino: 1:off
+2025-07-04 12:52:08,874 [INFO] 📥 Respuesta del Arduino: 🔧 Comando recibido: zona=1 estado=off tiempo=0
+2025-07-04 12:52:09,121 [INFO] 192.168.1.148 - - [04/Jul/2025 12:52:09] "GET /riego/1/off HTTP/1.1" 200 -
+2025-07-04 12:52:10,908 [INFO] 🔁 Comando recibido: 1:on
+2025-07-04 12:52:12,913 [INFO] 📤 Enviado al Arduino: 1:on
+2025-07-04 12:52:13,915 [INFO] 📥 Respuesta del Arduino: OK
+2025-07-04 12:52:14,172 [INFO] 192.168.1.148 - - [04/Jul/2025 12:52:14] "GET /riego/1/on?tiempo=2 HTTP/1.1" 200 -
+2025-07-04 12:53:26,394 [INFO] 📤 Enviado a Arduino: 1:on:5
+2025-07-04 12:53:26,415 [INFO] 127.0.0.1 - - [04/Jul/2025 12:53:26] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 12:57:07,571 [INFO] 192.168.1.148 - - [04/Jul/2025 12:57:07] "GET / HTTP/1.1" 200 -
+2025-07-04 12:57:12,182 [INFO] 🔁 Comando recibido: 1:on
+2025-07-04 12:57:14,187 [INFO] 📤 Enviado al Arduino: 1:on
+2025-07-04 12:57:15,189 [INFO] 📥 Respuesta del Arduino: OK
+2025-07-04 12:57:15,474 [INFO] 192.168.1.148 - - [04/Jul/2025 12:57:15] "GET /riego/1/on?tiempo=2 HTTP/1.1" 200 -
+2025-07-04 12:59:34,400 [INFO] 📤 Enviado a Arduino: 1:on:5
+2025-07-04 12:59:34,422 [INFO] 192.168.1.148 - - [04/Jul/2025 12:59:34] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 13:02:36,368 [INFO] 🔁 Comando recibido: 1:on
+2025-07-04 13:02:38,373 [INFO] 📤 Enviado al Arduino: 1:on
+2025-07-04 13:02:39,375 [INFO] 📥 Respuesta del Arduino: OK
+2025-07-04 13:02:39,659 [INFO] 192.168.1.148 - - [04/Jul/2025 13:02:39] "GET /riego/1/on?tiempo=2 HTTP/1.1" 200 -
+2025-07-04 13:02:47,280 [INFO] 192.168.1.148 - - [04/Jul/2025 13:02:47] "GET / HTTP/1.1" 200 -
+2025-07-04 13:02:49,369 [INFO] 🔁 Comando recibido: 1:on
+2025-07-04 13:02:51,373 [INFO] 📤 Enviado al Arduino: 1:on
+2025-07-04 13:02:51,939 [INFO] 🔁 Comando recibido: 1:off
+2025-07-04 13:02:53,943 [INFO] 📤 Enviado al Arduino: 1:off
+2025-07-04 13:02:54,005 [INFO] 📥 Respuesta del Arduino: 🔧 Comando recibido: zona=1 estado=off tiempo=0
+2025-07-04 13:02:54,251 [INFO] 192.168.1.148 - - [04/Jul/2025 13:02:54] "GET /riego/1/on HTTP/1.1" 200 -
+2025-07-04 13:02:54,946 [INFO] 📥 Respuesta del Arduino: OK
+2025-07-04 13:02:55,140 [INFO] 192.168.1.148 - - [04/Jul/2025 13:02:55] "GET /riego/1/off HTTP/1.1" 200 -
+2025-07-04 13:02:57,941 [INFO] 🔁 Comando recibido: 1:on
+2025-07-04 13:02:59,946 [INFO] 📤 Enviado al Arduino: 1:on
+2025-07-04 13:03:00,949 [INFO] 📥 Respuesta del Arduino: OK
+2025-07-04 13:03:01,202 [INFO] 192.168.1.148 - - [04/Jul/2025 13:03:01] "GET /riego/1/on?tiempo=2 HTTP/1.1" 200 -
+2025-07-04 13:00:28,094 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-04 13:00:28,098 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 13:00:28,125 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-04 13:00:28,126 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-04 23:26:42,901 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-04 23:26:42,902 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 23:26:53,806 [INFO] 192.168.1.148 - - [04/Jul/2025 23:26:53] "GET / HTTP/1.1" 200 -
+2025-07-04 23:27:04,820 [INFO] 📤 Enviado a Arduino: 1:on:5
+2025-07-04 23:27:04,843 [INFO] 192.168.1.148 - - [04/Jul/2025 23:27:04] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 23:27:16,042 [INFO] 📤 Enviado a Arduino: 2:on:5
+2025-07-04 23:27:16,063 [INFO] 192.168.1.148 - - [04/Jul/2025 23:27:16] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 23:27:28,044 [INFO] 📤 Enviado a Arduino: 2:on:1
+2025-07-04 23:27:28,066 [INFO] 192.168.1.148 - - [04/Jul/2025 23:27:28] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 23:27:40,466 [INFO] 📤 Enviado a Arduino: 2:on:10
+2025-07-04 23:27:40,488 [INFO] 192.168.1.148 - - [04/Jul/2025 23:27:40] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 23:29:29,841 [INFO] 192.168.1.148 - - [04/Jul/2025 23:29:29] "GET / HTTP/1.1" 200 -
+2025-07-04 23:29:30,954 [INFO] 192.168.1.148 - - [04/Jul/2025 23:29:30] "GET / HTTP/1.1" 200 -
+2025-07-04 23:29:35,122 [INFO] 192.168.1.148 - - [04/Jul/2025 23:29:35] "GET / HTTP/1.1" 200 -
+2025-07-04 23:29:38,783 [INFO] 📤 Enviado a Arduino: 1:on:5
+2025-07-04 23:29:38,804 [INFO] 192.168.1.148 - - [04/Jul/2025 23:29:38] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 23:34:03,420 [INFO] 192.168.1.148 - - [04/Jul/2025 23:34:03] "GET / HTTP/1.1" 200 -
+2025-07-04 23:34:04,800 [INFO] 192.168.1.148 - - [04/Jul/2025 23:34:04] "GET / HTTP/1.1" 200 -
+2025-07-04 23:34:09,784 [INFO] 192.168.1.148 - - [04/Jul/2025 23:34:09] "GET / HTTP/1.1" 200 -
+2025-07-04 23:34:10,684 [INFO] 192.168.1.148 - - [04/Jul/2025 23:34:10] "GET / HTTP/1.1" 200 -
+2025-07-04 23:34:12,607 [INFO] 192.168.1.148 - - [04/Jul/2025 23:34:12] "GET / HTTP/1.1" 200 -
+2025-07-04 23:34:59,533 [INFO] 192.168.1.148 - - [04/Jul/2025 23:34:59] "GET / HTTP/1.1" 200 -
+2025-07-04 23:35:02,119 [INFO] 192.168.1.148 - - [04/Jul/2025 23:35:02] "GET / HTTP/1.1" 200 -
+2025-07-04 23:35:21,251 [INFO] 🔁 Comando recibido: 1:on
+2025-07-04 23:35:21,885 [INFO] 192.168.1.148 - - [04/Jul/2025 23:35:21] "GET / HTTP/1.1" 200 -
+2025-07-04 23:35:23,256 [INFO] 📤 Enviado al Arduino: 1:on
+2025-07-04 23:35:24,259 [INFO] 📥 Respuesta del Arduino: OK
+2025-07-04 23:35:26,174 [WARNING] ⚠️ Error de Telegram: {"ok":false,"error_code":401,"description":"Unauthorized"}
+2025-07-04 23:35:26,195 [INFO] 192.168.1.148 - - [04/Jul/2025 23:35:26] "GET /riego/1/on HTTP/1.1" 200 -
+2025-07-04 23:35:55,767 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-04 23:35:55,768 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 23:35:55,784 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-04 23:35:55,784 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-04 23:35:57,341 [INFO] 192.168.1.148 - - [04/Jul/2025 23:35:57] "GET / HTTP/1.1" 200 -
+2025-07-04 23:37:13,701 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-04 23:37:13,702 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-04 23:37:13,717 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-04 23:37:13,718 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-04 23:37:14,797 [INFO] 192.168.1.148 - - [04/Jul/2025 23:37:14] "GET / HTTP/1.1" 200 -
+2025-07-04 23:37:21,627 [INFO] 📤 Enviado a Arduino: 1:on:3
+2025-07-04 23:37:21,650 [INFO] 192.168.1.148 - - [04/Jul/2025 23:37:21] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 23:37:32,482 [INFO] 📤 Enviado a Arduino: 2:on
+2025-07-04 23:37:32,503 [INFO] 192.168.1.148 - - [04/Jul/2025 23:37:32] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 23:37:41,434 [INFO] 📤 Enviado a Arduino: 2:off
+2025-07-04 23:37:41,455 [INFO] 192.168.1.148 - - [04/Jul/2025 23:37:41] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 23:45:27,191 [INFO] 127.0.0.1 - - [04/Jul/2025 23:45:27] "GET / HTTP/1.1" 200 -
+2025-07-04 23:45:34,712 [INFO] 📤 Enviado a Arduino: 1:on
+2025-07-04 23:45:34,735 [INFO] 127.0.0.1 - - [04/Jul/2025 23:45:34] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 23:45:40,133 [INFO] 📤 Enviado a Arduino: 1:off
+2025-07-04 23:45:40,154 [INFO] 127.0.0.1 - - [04/Jul/2025 23:45:40] "POST /valvula HTTP/1.1" 200 -
+2025-07-04 23:53:57,098 [INFO] 127.0.0.1 - - [04/Jul/2025 23:53:57] "GET / HTTP/1.1" 200 -
+2025-07-05 00:00:57,579 [INFO] 127.0.0.1 - - [05/Jul/2025 00:00:57] "GET / HTTP/1.1" 200 -
+2025-07-05 00:00:57,918 [INFO] 127.0.0.1 - - [05/Jul/2025 00:00:57] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-07-05 00:00:26,393 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-05 00:00:26,396 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-05 00:00:26,421 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-05 00:00:26,422 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-05 00:04:10,747 [INFO] 127.0.0.1 - - [05/Jul/2025 00:04:10] "GET / HTTP/1.1" 200 -
+2025-07-05 00:04:11,075 [INFO] 127.0.0.1 - - [05/Jul/2025 00:04:11] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-07-05 00:11:47,531 [INFO] 192.168.1.148 - - [05/Jul/2025 00:11:47] "GET / HTTP/1.1" 200 -
+2025-07-05 00:26:57,279 [INFO] 📤 Enviado a Arduino: 1:on
+2025-07-05 00:26:57,301 [INFO] 192.168.1.148 - - [05/Jul/2025 00:26:57] "POST /valvula HTTP/1.1" 200 -
+2025-07-05 00:27:01,361 [INFO] 📤 Enviado a Arduino: 1:off
+2025-07-05 00:00:27,347 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-05 00:00:27,351 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-05 00:00:27,375 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-05 00:00:27,376 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-05 07:58:57,053 [INFO] ✅ Conectado exitosamente a /dev/ttyACM0
+2025-07-05 07:58:57,054 [INFO] 🚀 Iniciando servidor Flask en 0.0.0.0:5000
+2025-07-05 07:58:57,068 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.158:5000
+2025-07-05 07:58:57,069 [INFO] [33mPress CTRL+C to quit[0m
+2025-07-05 07:59:49,170 [INFO] 127.0.0.1 - - [05/Jul/2025 07:59:49] "GET / HTTP/1.1" 200 -
+2025-07-05 07:59:49,495 [INFO] 127.0.0.1 - - [05/Jul/2025 07:59:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-07-05 08:00:04,276 [INFO] 127.0.0.1 - - [05/Jul/2025 08:00:04] "GET / HTTP/1.1" 200 -
+2025-07-05 08:00:17,219 [INFO] 127.0.0.1 - - [05/Jul/2025 08:00:17] "[33mGET /apple-touch-icon-precomposed.png HTTP/1.1[0m" 404 -
+2025-07-05 08:00:17,224 [INFO] 127.0.0.1 - - [05/Jul/2025 08:00:17] "[33mGET /apple-touch-icon.png HTTP/1.1[0m" 404 -
+2025-07-05 08:00:17,239 [INFO] 127.0.0.1 - - [05/Jul/2025 08:00:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-07-05 08:00:22,216 [INFO] 127.0.0.1 - - [05/Jul/2025 08:00:22] "[33mGET /apple-touch-icon-120x120-precomposed.png HTTP/1.1[0m" 404 -
+2025-07-05 08:00:22,313 [INFO] 127.0.0.1 - - [05/Jul/2025 08:00:22] "[33mGET /apple-touch-icon-120x120.png HTTP/1.1[0m" 404 -
+2025-07-05 08:00:22,410 [INFO] 127.0.0.1 - - [05/Jul/2025 08:00:22] "[33mGET /apple-touch-icon.png HTTP/1.1[0m" 404 -
+2025-07-05 08:00:22,505 [INFO] 127.0.0.1 - - [05/Jul/2025 08:00:22] "[33mGET /apple-touch-icon.png HTTP/1.1[0m" 404 -
+2025-07-05 08:00:30,800 [INFO] 127.0.0.1 - - [05/Jul/2025 08:00:30] "GET / HTTP/1.1" 200 -
+2025-07-05 08:13:46,789 [INFO] 127.0.0.1 - - [05/Jul/2025 08:13:46] "GET / HTTP/1.1" 200 -
+2025-07-05 08:13:47,280 [INFO] 127.0.0.1 - - [05/Jul/2025 08:13:47] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-07-05 08:32:21,735 [INFO] 192.168.1.148 - - [05/Jul/2025 08:32:21] "GET / HTTP/1.1" 200 -
+2025-07-05 08:32:31,179 [INFO] 192.168.1.148 - - [05/Jul/2025 08:32:31] "GET / HTTP/1.1" 200 -
+2025-07-05 08:32:40,533 [INFO] 📤 Enviado a Arduino: 1:on
+2025-07-05 08:32:40,555 [INFO] 192.168.1.148 - - [05/Jul/2025 08:32:40] "POST /valvula HTTP/1.1" 200 -
+2025-07-05 08:32:46,135 [INFO] 📤 Enviado a Arduino: 1:off
+2025-07-05 08:32:46,156 [INFO] 192.168.1.148 - - [05/Jul/2025 08:32:46] "POST /valvula HTTP/1.1" 200 -
+2025-07-05 08:33:46,303 [INFO] 📤 Enviado a Arduino: 1:on
+2025-07-05 08:33:46,325 [INFO] 192.168.1.148 - - [05/Jul/2025 08:33:46] "POST /valvula HTTP/1.1" 200 -
+2025-07-05 08:33:48,920 [INFO] 📤 Enviado a Arduino: 1:off
+2025-07-05 08:33:48,940 [INFO] 192.168.1.148 - - [05/Jul/2025 08:33:48] "POST /valvula HTTP/1.1" 200 -

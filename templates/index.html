@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SmartRiego</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde: #4CAF50;
+      --verde-oscuro: #388E3C;
+      --rojo: #d9534f;
+      --gris-fondo: #f3f4f6;
+      --sombra: rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: var(--gris-fondo);
+      padding: 1.5rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #222;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .zona {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px var(--sombra);
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .zona.activa {
+      background: #e6fbe9;
+      animation: pulso 1.5s infinite;
+    }
+
+    @keyframes pulso {
+      0%, 100% { box-shadow: 0 0 10px rgba(76, 175, 80, 0.2); }
+      50%      { box-shadow: 0 0 20px rgba(76, 175, 80, 0.4); }
+    }
+
+    .zona h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+    }
+
+    .zona input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin: 0.5rem 0 1rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .botones {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button.encender {
+      background: var(--verde);
+    }
+
+    button.encender:hover {
+      background: var(--verde-oscuro);
+    }
+
+    button.apagar {
+      background: var(--rojo);
+    }
+
+    button.apagar:hover {
+      background: #c9302c;
+    }
+
+    .cuenta-atras {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #007700;
+      font-weight: bold;
+    }
+
+    #resultado {
+      margin-top: 2rem;
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>SmartRiego</h1>
+  <div class="grid">
+    <div class="zona" id="zona1">
+      <h2>Zona 1</h2>
+      <input type="number" id="tiempo1" placeholder="Tiempo en segundos (opcional)">
+      <div class="botones">
+        <button class="encender" onclick="controlarRiego(1, 'on')">Encender</button>
+        <button class="apagar" onclick="controlarRiego(1, 'off')">Apagar</button>
+      </div>
+      <div id="cuenta1" class="cuenta-atras"></div>
+    </div>
+
+    <div class="zona" id="zona2">
+      <h2>Zona 2</h2>
+      <input type="number" id="tiempo2" placeholder="Tiempo en segundos (opcional)">
+      <div class="botones">
+        <button class="encender" onclick="controlarRiego(2, 'on')">Encender</button>
+        <button class="apagar" onclick="controlarRiego(2, 'off')">Apagar</button>
+      </div>
+      <div id="cuenta2" class="cuenta-atras"></div>
+    </div>
+  </div>
+
+  <div id="resultado"></div>
+
+  <script>
+    let temporizadores = {};
+
+    async function controlarRiego(zona, estado) {
+      const input = document.getElementById('tiempo' + zona);
+      const tiempo = parseInt(input.value.trim(), 10);
+      const cuenta = document.getElementById('cuenta' + zona);
+      const contenedor = document.getElementById('zona' + zona);
+      const datos = { zona, estado };
+
+      if (temporizadores[zona]) {
+        clearInterval(temporizadores[zona]);
+        cuenta.innerText = '';
+        contenedor.classList.remove('activa');
+      }
+
+      if (estado === 'on' && !isNaN(tiempo) && tiempo > 0) {
+        datos.tiempo = tiempo;
+        iniciarCuentaAtras(zona, tiempo);
+        contenedor.classList.add('activa');
+      } else if (estado === 'on') {
+        // tiempo infinito
+        cuenta.innerText = 'Encendido (sin tiempo)';
+        contenedor.classList.add('activa');
+      }
+
+      try {
+        const res = await fetch('/valvula', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(datos)
+        });
+
+        const json = await res.json();
+        document.getElementById('resultado').innerText =
+          `✅ Comando: ${json.comando}, Estado: ${json.estado}`;
+
+        if (estado === 'off') {
+          cuenta.innerText = '';
+          contenedor.classList.remove('activa');
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById('resultado').innerText =
+          '❌ Error al enviar comando';
+      }
+    }
+
+    function iniciarCuentaAtras(zona, segundos) {
+      const cuenta = document.getElementById('cuenta' + zona);
+      const contenedor = document.getElementById('zona' + zona);
+      cuenta.innerText = `Cuenta atrás: ${segundos}s`;
+
+      temporizadores[zona] = setInterval(() => {
+        segundos--;
+        if (segundos > 0) {
+          cuenta.innerText = `Cuenta atrás: ${segundos}s`;
+        } else {
+          clearInterval(temporizadores[zona]);
+          cuenta.innerText = '';
+          contenedor.classList.remove('activa');
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

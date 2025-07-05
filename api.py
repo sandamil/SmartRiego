@@ -1,128 +1,74 @@
+from flask import Flask, request, jsonify, send_from_directory
 import serial
 import time
 import logging
+import os
+import threading
 import requests
-from flask import Flask, jsonify, request, send_from_directory
 
-# 📌 Configuración
-SERIAL_PORT = "/dev/ttyACM0"
-BAUDRATE = 9600
-TELEGRAM_TOKEN = "7978337371:AAFge993RCRdXBcArZEzXQtuFumGBWiyydc"
-TELEGRAM_CHAT_ID = "162303510"  # ← Reemplazá esto con tu chat ID real
-
-# 🛠️ Configurar logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("smartriego.log"),
-        logging.StreamHandler()
-    ]
-)
-
-# ✉️ Envío a Telegram
-def enviar_telegram(mensaje):
-    try:
-        url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-        data = {"chat_id": TELEGRAM_CHAT_ID, "text": mensaje}
-        response = requests.post(url, data=data)
-        if response.status_code != 200:
-            logging.warning(f"⚠️ Error de Telegram: {response.text}")
-    except Exception as e:
-        logging.error(f"❌ Fallo al enviar a Telegram: {str(e)}")
-
-# 🚀 Crear API Flask
 app = Flask(__name__)
 
-# 🌐 Ruta principal de control
-@app.route('/riego/<int:zona>/<estado>', methods=['GET'])
-@app.route('/riego/<int:zona>/<estado>/<int:tiempo>', methods=['GET'])
-def controlar_riego(zona, estado, tiempo=0):
-    if zona not in [1, 2]:
-        return jsonify({"error": True, "mensaje": "Zona inválida. Solo se permiten 1 y 2"}), 400
-    if estado not in ['on', 'off']:
-        return jsonify({"error": True, "mensaje": "Estado inválido. Usa 'on' u 'off'"}), 400
+# Logging
+logging.basicConfig(filename='logs/smartriego.log',
+                    level=logging.INFO,
+                    format='%(asctime)s %(levelname)s: %(message)s')
 
-    comando = f"{zona}:{estado}"
-    if tiempo > 0:
-        comando += f":{tiempo}"
-    comando += "\n"
+TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
+TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
-    logging.info(f"🔁 Comando recibido: {comando.strip()}")
+arduino = serial.Serial('/dev/ttyACM0', 9600, timeout=2)
+time.sleep(2)
 
+def enviar_telegram(mensaje):
+    if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
+        logging.error("Variables de entorno no definidas")
+        return
     try:
-        with serial.Serial(SERIAL_PORT, BAUDRATE, timeout=2) as arduino:
-            time.sleep(2)  # Esperar al Arduino
-            arduino.write(comando.encode())
-            logging.info(f"📤 Enviado al Arduino: {comando.strip()}")
-            time.sleep(1)
-            respuesta = arduino.readline().decode().strip()
-            logging.info(f"📥 Respuesta del Arduino: {respuesta}")
-
-            mensaje = f"💧 Zona {zona} → {estado.upper()} {'⏱️ ' + str(tiempo) + 's' if tiempo > 0 else ''} ✅ Respuesta: {respuesta}"
-            enviar_telegram(mensaje)
-
-            return jsonify({
-                "zona": zona,
-                "estado": estado,
-                "tiempo": tiempo,
-                "respuesta": respuesta
-            })
-
+        requests.post(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+            json={'chat_id': TELEGRAM_CHAT_ID, 'text': mensaje},
+            timeout=5
+        )
     except Exception as e:
-        error_msg = f"❌ Error zona {zona}: {str(e)}"
-        logging.error(error_msg)
-        enviar_telegram(error_msg)
-        return jsonify({
-            "error": True,
-            "mensaje": str(e)
-        }), 500
+        logging.error(f"Error enviando mensaje Telegram: {e}")
 
-# 🩺 Ruta de prueba
-@app.route('/status', methods=['GET'])
-def status():
+def enviar_comando_arduino(comando):
     try:
-        with serial.Serial(SERIAL_PORT, BAUDRATE, timeout=2) as arduino:
-            time.sleep(2)
-            arduino.write(b'status\n')
-            respuesta = arduino.readline().decode().strip()
-            return jsonify({"estado": "ok", "arduino": respuesta})
+        arduino.write((comando + '\n').encode())
+        respuesta = arduino.readline().decode().strip()
+        logging.info(f"Arduino respondió: {respuesta}")
+        return respuesta
     except Exception as e:
-        return jsonify({"estado": "error", "mensaje": str(e)})
-
-from flask import send_from_directory
+        logging.error(f"Error en comunicación serial: {e}")
+        enviar_telegram(f"❌ Error en serial: {e}")
+        return None
 
 @app.route('/')
 def interfaz_web():
-    return send_from_directory('static', 'index.html')
+    return send_from_directory('templates', 'index.html')
 
-
-@app.route('/valvula', methods=['POST'])
-def controlar_valvula():
-    datos = request.get_json()
-    zona = datos.get("zona")
-    estado = datos.get("estado")
-    tiempo = datos.get("tiempo", 0)
-
-    if not zona or not estado:
-        return jsonify({"estado": "error", "mensaje": "Faltan datos: zona y estado son obligatorios"}), 400
-
+@app.route('/riego/<int:zona>/<estado>', methods=['GET'])
+def controlar_valvula_get(zona, estado):
+    tiempo = request.args.get('tiempo')
     comando = f"{zona}:{estado}"
     if tiempo:
         comando += f":{tiempo}"
+    respuesta = enviar_comando_arduino(comando)
+    return jsonify({'comando': comando, 'respuesta': respuesta})
 
-    try:
-        with serial.Serial(SERIAL_PORT, BAUDRATE, timeout=2) as arduino:
-            time.sleep(2)
-            arduino.write((comando + '\n').encode())
-            logging.info(f"📤 Enviado a Arduino: {comando}")
-            return jsonify({"estado": "ok", "comando": comando})
-    except Exception as e:
-        logging.error(f"❌ Error enviando a Arduino: {e}")
-        return jsonify({"estado": "error", "mensaje": str(e)})
+@app.route('/valvula', methods=['POST'])
+def controlar_valvula_post():
+    data = request.get_json()
+    zona = data.get('zona')
+    estado = data.get('estado')
+    tiempo = data.get('tiempo')
+    if zona not in [1, 2] or estado not in ['on', 'off']:
+        return jsonify({'error': 'Parámetros inválidos'}), 400
+    comando = f"{zona}:{estado}"
+    if tiempo:
+        comando += f":{tiempo}"
+    respuesta = enviar_comando_arduino(comando)
+    return jsonify({'comando': comando, 'respuesta': respuesta})
 
-# 🏁 Iniciar servidor
 if __name__ == '__main__':
-    logging.info(f"✅ Conectado exitosamente a {SERIAL_PORT}")
-    logging.info("🚀 Iniciando servidor Flask en 0.0.0.0:5000")
     app.run(host='0.0.0.0', port=5000)
