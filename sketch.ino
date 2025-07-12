@@ -1,72 +1,64 @@
-// SmartRiego - Sketch para 2 válvulas con relés activos en bajo y LED de estado
+// SmartRiego - Sketch para 10 válvulas con relés activos en bajo (LOW)
 
-const int VALVULA_1 = 7;
-const int VALVULA_2 = 8;
+const int ZONAS = 10;
 const int LED = 13;
 
-unsigned long tiempoApagado1 = 0;
-unsigned long tiempoApagado2 = 0;
-
-bool valvula1Activa = false;
-bool valvula2Activa = false;
+const int pinesZonas[ZONAS] = {7, 8, 2, 3, 4, 5, 6, 9, 10, 11}; // Puedes modificar si lo necesitas
+bool zonasActivas[ZONAS] = {false};
+unsigned long tiemposApagado[ZONAS] = {0};
 
 void setup() {
-  pinMode(VALVULA_1, OUTPUT);
-  pinMode(VALVULA_2, OUTPUT);
-  pinMode(LED, OUTPUT);
-
-  digitalWrite(VALVULA_1, HIGH); // Relé OFF (activo en bajo)
-  digitalWrite(VALVULA_2, HIGH); // Relé OFF
-  digitalWrite(LED, LOW);
-
   Serial.begin(9600);
   while (!Serial);
+
+  for (int i = 0; i < ZONAS; i++) {
+    pinMode(pinesZonas[i], OUTPUT);
+    digitalWrite(pinesZonas[i], HIGH);  // OFF inicial (activo en bajo)
+  }
+
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LOW);
+
   Serial.println("OK");
 }
 
 void loop() {
   unsigned long ahora = millis();
 
-  // ⏱️ Apagado automático por temporizador
-  if (valvula1Activa && tiempoApagado1 > 0 && ahora >= tiempoApagado1) {
-    Serial.print("⏱️ Apagando válvula 1. ahora=");
-    Serial.print(ahora);
-    Serial.print(" tiempoApagado1=");
-    Serial.println(tiempoApagado1);
-
-    digitalWrite(VALVULA_1, HIGH);  // OFF
-    valvula1Activa = false;
-    tiempoApagado1 = 0;
+  // ⏱️ Comprobar temporizadores
+  for (int i = 0; i < ZONAS; i++) {
+    if (zonasActivas[i] && tiemposApagado[i] > 0 && ahora >= tiemposApagado[i]) {
+      digitalWrite(pinesZonas[i], HIGH);  // OFF (relé activo en LOW)
+      zonasActivas[i] = false;
+      tiemposApagado[i] = 0;
+      Serial.print("⏱️ Apagando zona ");
+      Serial.println(i + 1);
+    }
   }
 
-  if (valvula2Activa && tiempoApagado2 > 0 && ahora >= tiempoApagado2) {
-    Serial.print("⏱️ Apagando válvula 2. ahora=");
-    Serial.print(ahora);
-    Serial.print(" tiempoApagado2=");
-    Serial.println(tiempoApagado2);
-
-    digitalWrite(VALVULA_2, HIGH);  // OFF
-    valvula2Activa = false;
-    tiempoApagado2 = 0;
+  // 💡 LED de estado
+  bool algunaActiva = false;
+  for (int i = 0; i < ZONAS; i++) {
+    if (zonasActivas[i]) {
+      algunaActiva = true;
+      break;
+    }
   }
+  digitalWrite(LED, algunaActiva ? HIGH : millis() / 1000 % 2);
 
-  // 🔆 LED de estado
-  if (valvula1Activa || valvula2Activa) {
-    digitalWrite(LED, HIGH);
-  } else {
-    digitalWrite(LED, millis() / 1000 % 2);  // Heartbeat
-  }
-
-  // 📥 Leer comandos por Serial
+  // 📥 Comando por Serial
   if (Serial.available()) {
     String comando = Serial.readStringUntil('\n');
     comando.trim();
 
     if (comando == "status") {
-      Serial.print("Z1:");
-      Serial.print(valvula1Activa ? "ON" : "OFF");
-      Serial.print(" Z2:");
-      Serial.println(valvula2Activa ? "ON" : "OFF");
+      for (int i = 0; i < ZONAS; i++) {
+        Serial.print("Z");
+        Serial.print(i + 1);
+        Serial.print(":");
+        Serial.print(zonasActivas[i] ? "ON " : "OFF ");
+      }
+      Serial.println();
       return;
     }
 
@@ -79,32 +71,17 @@ void loop() {
 
     bool exito = false;
 
-    // ✅ ZONA 1
-    if (zona == 1) {
+    if (zona >= 1 && zona <= ZONAS) {
+      int idx = zona - 1;
       if (estado == "on") {
-        digitalWrite(VALVULA_1, LOW);  // ON
-        valvula1Activa = true;
-        if (tiempo > 0) tiempoApagado1 = millis() + (unsigned long) tiempo * 1000UL;
+        digitalWrite(pinesZonas[idx], LOW);  // ON
+        zonasActivas[idx] = true;
+        if (tiempo > 0) tiemposApagado[idx] = ahora + (unsigned long) tiempo * 1000UL;
         exito = true;
       } else if (estado == "off") {
-        digitalWrite(VALVULA_1, HIGH); // OFF
-        valvula1Activa = false;
-        tiempoApagado1 = 0;
-        exito = true;
-      }
-    }
-
-    // ✅ ZONA 2
-    else if (zona == 2) {
-      if (estado == "on") {
-        digitalWrite(VALVULA_2, LOW);  // ON
-        valvula2Activa = true;
-        if (tiempo > 0) tiempoApagado2 = millis() + (unsigned long) tiempo * 1000UL;
-        exito = true;
-      } else if (estado == "off") {
-        digitalWrite(VALVULA_2, HIGH); // OFF
-        valvula2Activa = false;
-        tiempoApagado2 = 0;
+        digitalWrite(pinesZonas[idx], HIGH); // OFF
+        zonasActivas[idx] = false;
+        tiemposApagado[idx] = 0;
         exito = true;
       }
     }
@@ -119,7 +96,7 @@ void loop() {
   }
 }
 
-// 💡 Parpadeo rápido del LED (actividad o error)
+// 💡 Parpadeo rápido del LED
 void parpadeoRapido(int pin, int veces, int duracion) {
   for (int i = 0; i < veces; i++) {
     digitalWrite(pin, HIGH);
